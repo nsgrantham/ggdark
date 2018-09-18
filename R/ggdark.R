@@ -9,7 +9,7 @@
 #' @return darkened_theme
 #'
 #' @export
-darken <- function(.theme, background = "black", geom_fill = "white",
+darken <- function(.theme = theme_get(), background = "black", geom_fill = "white",
                    geom_color = "white", geom_colour = geom_color) {
   stopifnot(all(class(.theme) == c("theme", "gg")))
   element_names <- names(.theme)

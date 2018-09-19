@@ -1,4 +1,11 @@
-#' Enable dark mode of a ggplot2 theme
+#' @details
+#' The only function you're likely to need from ggdark is [darken()]
+#' which activates dark mode on your favorite ggplot2 theme. See the
+#' README at github.com/nsgrantham/ggdark for more information.
+#' @keywords internal
+"ggdark"
+
+#' Activate dark mode on a ggplot2 theme
 #'
 #' @param .theme ggplot2 theme object
 #' @param background Background fill

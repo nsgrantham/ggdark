@@ -18,7 +18,7 @@ devtools::install_github("nsgrantham/ggdark")
 Dark mode
 ---------
 
-`ggdark::darken` is not a ggplot2 theme. Rather, it acts on a ggplot2 theme and inverts its colors.
+`darken` acts on a ggplot2 theme and inverts its colors. It is not itself a ggplot2 theme.
 
 ``` r
 library(ggplot2)
@@ -27,7 +27,7 @@ library(ggdark)
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + 
   geom_point(aes(color = Species))
 
-p  # theme_gray()
+p  # theme_gray(), the default
 ```
 
 ![](man/figures/gray-1.png)
@@ -63,7 +63,7 @@ p + darken()  # geom color is now white
 ![](man/figures/white-geom-color-1.png)
 
 ``` r
-p + darken(geom_color = "grey77")  # or perhaps a light grey 
+p + darken(geom_color = "grey80")  # or perhaps a light grey 
 ```
 
 ![](man/figures/grey-geom-color-1.png)
@@ -72,22 +72,28 @@ Restore the geom colors to their ggplot2 defaults with
 
     restore_geom_colors()  # fill = "black", color = "black"
 
-Beware
-------
+Take note
+---------
 
 `darken` must act directly on the theme it is modifying, layering does not work.
 
 ``` r
 # darken is not aware of theme_minimal() and will darken the theme returned by theme_get()
-p + theme_minimal() + darken()  # darkens theme_gray()
+p + theme_minimal() + darken()  # darkens theme_gray(), the active theme
 ```
 
-Set the theme to avoid this problem.
+You can use the pipe operator `%>%` from `magrittr`.
 
 ``` r
-# this will darken theme_minimal(), as it is now returned by theme_get()
+library(magrittr)
+p + theme_minimal() %>% darken()  # darkens theme_minimal()
+```
+
+Setting the theme also circumvents this problem.
+
+``` r
 theme_set(theme_minimal())
-p + darken()  
+p + darken()  # darkens theme_minimal, as it is now returned by theme_get()
 
 # why not turn on dark mode for all plots? :)
 theme_set(darken(theme_minimal()))

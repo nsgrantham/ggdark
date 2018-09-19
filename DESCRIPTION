@@ -4,8 +4,9 @@ Title: Dark Mode for ggplot2 Themes
 Version: 0.1.0
 Author: Neal Grantham
 Maintainer: Neal Grantham <neal@nsgrantham.com>
-Description: Use ggdark::darken(theme_*()) to enable dark mode on theme_*
+Description: Use ggdark::darken(theme_*()) to enable dark mode on theme_*.
 License: MIT + file LICENSE
+Depends: R (>= 2.10)
 Imports: ggplot2
 Encoding: UTF-8
 LazyData: true

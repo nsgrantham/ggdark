@@ -4,7 +4,7 @@
 \alias{darken}
 \title{Enable dark mode of a ggplot2 theme}
 \usage{
-darken(.theme = theme_get(), background = "black",
+darken(.theme = ggplot2::theme_get(), background = "black",
   geom_fill = "white", geom_color = "white",
   geom_colour = geom_color)
 }
@@ -20,7 +20,7 @@ darken(.theme = theme_get(), background = "black",
 \item{geom_colour}{Alias of geom_color}
 }
 \value{
-darkened_theme
+Theme with dark mode elements
 }
 \description{
 Enable dark mode of a ggplot2 theme

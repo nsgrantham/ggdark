@@ -2,9 +2,12 @@
 % Please edit documentation in R/ggdark.R
 \name{update_geom_colors}
 \alias{update_geom_colors}
+\alias{update_geom_colours}
 \title{Update geom defaults for fill and color/colour}
 \usage{
 update_geom_colors(fill, color, colour = color)
+
+update_geom_colours(fill, color, colour = color)
 }
 \arguments{
 \item{fill}{Default fill value for ggplot2::geom_*}
@@ -15,4 +18,7 @@ update_geom_colors(fill, color, colour = color)
 }
 \description{
 Update geom defaults for fill and color/colour
+}
+\seealso{
+[update_geom_colours()]
 }

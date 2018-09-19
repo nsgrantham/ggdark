@@ -5,11 +5,11 @@
 #' @param geom_fill Default fill value for ggplot2::geom_*
 #' @param geom_color Default color value for ggplot2::geom_*
 #' @param geom_colour Alias of geom_color
-#'
-#' @return darkened_theme
-#'
+#' @return Theme with dark mode elements
+#' @importFrom ggplot2 theme theme_get element_rect element_line element_text
 #' @export
-darken <- function(.theme = theme_get(), background = "black", geom_fill = "white",
+#' @rdname darken
+darken <- function(.theme = ggplot2::theme_get(), background = "black", geom_fill = "white",
                    geom_color = "white", geom_colour = geom_color) {
   stopifnot(all(class(.theme) == c("theme", "gg")))
   element_names <- names(.theme)
@@ -20,12 +20,12 @@ darken <- function(.theme = theme_get(), background = "black", geom_fill = "whit
     if (("element" %in% element_class) & !("element_blank" %in% element_class)) {
       element_type <- element_class[1]
       if (element_type == "element_rect") {
-        updated_element <- element_rect(colour = greyscale_complement(element$colour),
-                                        fill = greyscale_complement(element$fill))
+        updated_element <- ggplot2::element_rect(colour = greyscale_complement(element$colour),
+                                                 fill = greyscale_complement(element$fill))
       } else if (element_type == "element_line") {
-        updated_element <- element_line(colour = greyscale_complement(element$colour))
+        updated_element <- ggplot2::element_line(colour = greyscale_complement(element$colour))
       } else if (element_type == "element_text") {
-        updated_element <- element_text(colour = greyscale_complement(element$colour))
+        updated_element <- ggplot2::element_text(colour = greyscale_complement(element$colour))
       } else {
         stop("Element class not one of rect, line, or text.")
       }
@@ -45,8 +45,10 @@ darken <- function(.theme = theme_get(), background = "black", geom_fill = "whit
 #' @param fill Default fill value for ggplot2::geom_*
 #' @param color Default color value for ggplot2::geom_*
 #' @param colour Alias of color
-#'
+#' @seealso [update_geom_colours()]
+#' @importFrom ggplot2 update_geom_defaults
 #' @export
+#' @rdname update_geom_colors
 update_geom_colors <- function(fill, color, colour = color) {
   geoms <- c("abline", "area", "bar", "boxplot", "col", "crossbar",
              "density", "dotplot", "errorbar", "hline", "label",
@@ -60,20 +62,25 @@ update_geom_colors <- function(fill, color, colour = color) {
 }
 
 #' @export
+#' @rdname update_geom_colors
 update_geom_colours <- update_geom_colors
 
+#' Restore the geom defaults of fill = "white and color = "black"
+#'
 #' @export
-restore_geom_colors <- function() update_geom_colors(fill = "white", color = "black")
+#' @rdname restore_geom_colors
+restore_geom_colors <- function() update_geom_colors(fill = "black", color = "black")
 
 #' @export
+#' @rdname restore_geom_colors
 restore_geom_colours <- restore_geom_colors
 
 
-#' Get complement on grey scale
+#' Get greyscale complement
 #'
-#' @param color Greyscale color for which to find its complement
-#'
+#' @param color Greyscale color to complement
 #' @export
+#' @rdname greyscale_complement
 greyscale_complement <- function(color) {
   if (is.null(color) || is.na(color)) {
     comp <- color
@@ -85,31 +92,39 @@ greyscale_complement <- function(color) {
   comp
 }
 
+#' Get greyscale complement to color by hexcode
+#'
+#' @param color Greyscale color to complement
+#' @importFrom grDevices col2rgb rgb
+#' @export
+#' @rdname greyscale_complement_hex
 greyscale_complement_hex <- function(color) {
-  color_rgb <- c(col2rgb(color))
+  color_rgb <- c(grDevices::col2rgb(color))
   if (length(unique(color_rgb)) == 1) {  # if rgb all equal then grey scale
     comp_rgb <- abs(255 - color_rgb)
-    comp <- rgb(comp_rgb[1], comp_rgb[2], comp_rgb[3], maxColorValue=255)
+    comp <- grDevices::rgb(comp_rgb[1], comp_rgb[2], comp_rgb[3], maxColorValue=255)
   } else {
-    comp <- color  # not in grey scale so return unchanged
+    comp <- color  # not in greyscale so return unchanged
   }
   comp
 }
 
+#' Get greyscale complement to color by name
+#'
+#' @param color Greyscale color to complement
+#' @export
+#' @rdname greyscale_complement_name
 greyscale_complement_name <- function(color) {
   if (color == "black") {
     comp <- "white"
   } else if (color == "white") {
     comp <- "black"
-  } else if (startsWith(color, "gray")) {
-    comp <- grayscale_complements_list[[color]]
   } else if (startsWith(color, "grey")) {
     comp <- greyscale_complements_list[[color]]
+  } else if (startsWith(color, "gray")) {
+    comp <- grayscale_complements_list[[color]]
   } else {
-    comp <- color  # not in grey scale so return unchanged
+    comp <- color  # not in greyscale so return unchanged
   }
   comp
 }
-
-grayscale_complements_list <- setNames(rev(paste0("gray", 0:100)), paste0("gray", 0:100))
-greyscale_complements_list <- setNames(rev(paste0("grey", 0:100)), paste0("grey", 0:100))

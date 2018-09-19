@@ -2,13 +2,13 @@
 % Please edit documentation in R/ggdark.R
 \name{greyscale_complement}
 \alias{greyscale_complement}
-\title{Get complement on grey scale}
+\title{Get greyscale complement}
 \usage{
 greyscale_complement(color)
 }
 \arguments{
-\item{color}{Greyscale color for which to find its complement}
+\item{color}{Greyscale color to complement}
 }
 \description{
-Get complement on grey scale
+Get greyscale complement
 }

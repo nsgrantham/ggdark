@@ -1,0 +1,95 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# ggdark
+
+Activate dark mode on your favorite ggplot2 theme with `ggdark::darken`. 
+
+## Installation
+
+You can install ggdark from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("nsgrantham/ggdark")
+```
+
+## Dark mode
+
+`ggdark::darken` is not a ggplot2 theme. Rather, it acts on a ggplot2 theme and inverts its colors.
+
+```{r gray, fig.path="man/figures/"}
+library(ggplot2)
+library(ggdark)
+
+p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + 
+  geom_point(aes(color = Species))
+
+p  # theme_gray()
+```
+
+```{r darken-gray, fig.path="man/figures/"}
+p + darken()  # activate dark mode on theme_gray()
+```
+
+```{r darken-minimal, fig.path="man/figures/"}
+p + darken(theme_minimal())  # darken a different ggplot2 theme
+```
+
+```{r grey-background, fig.path="man/figures/"}
+p + darken(theme_minimal(), background = "grey20")  # lighten black background
+```
+
+
+In addition to inverting colors of theme elements, `darken` redefines the default values of geom fill and geom color from `"black"` to `"white"`. This makes the geoms visible against the dark background.
+
+```{r white-geom-color, fig.path="man/figures/"}
+p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point() +
+  facet_wrap(~ Species)
+
+p + darken()  # geom color is now white
+```
+
+```{r grey-geom-color, fig.path="man/figures/"}
+p + darken(geom_color = "grey77")  # or perhaps a light grey 
+```
+
+
+Restore the geom colors to their ggplot2 defaults with
+```
+restore_geom_colors()  # fill = "black", color = "black"
+```
+
+## Beware
+
+`darken` must act directly on the theme it is modifying, layering does not work. 
+
+```{r beware, eval=FALSE}
+# darken is not aware of theme_minimal() and will darken the theme returned by theme_get()
+p + theme_minimal() + darken()  # darkens theme_gray()
+```
+
+Set the theme to avoid this problem.
+
+```{r theme-set, eval=FALSE}
+# this will darken theme_minimal(), as it is now returned by theme_get()
+theme_set(theme_minimal())
+p + darken()  
+
+# why not turn on dark mode for all plots? :)
+theme_set(darken(theme_minimal()))
+p  # dark
+```
+

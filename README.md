@@ -3,6 +3,8 @@
 ggdark
 ======
 
+[![Travis-CI Build Status](https://travis-ci.org/nsgrantham/ggdark.svg?branch=master)](https://travis-ci.org/nsgrantham/ggdark) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/nsgrantham/ggdark?branch=master&svg=true)](https://ci.appveyor.com/project/nsgrantham/ggdark)
+
 Activate dark mode on your favorite ggplot2 theme with `ggdark::darken`.
 
 Installation
@@ -93,9 +95,14 @@ Setting the theme also circumvents this problem.
 
 ``` r
 theme_set(theme_minimal())
-p + darken()  # darkens theme_minimal, as it is now returned by theme_get()
+p + darken()  # darkens theme_minimal(), as it is now returned by theme_get()
 
 # why not turn on dark mode for all plots? :)
 theme_set(darken(theme_minimal()))
 p  # dark
 ```
+
+License
+-------
+
+MIT + file LICENSE

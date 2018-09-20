@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggdark.R
 \name{darken}
 \alias{darken}
-\title{Enable dark mode of a ggplot2 theme}
+\title{Activate dark mode on a ggplot2 theme}
 \usage{
 darken(.theme = ggplot2::theme_get(), background = "black",
   geom_fill = "white", geom_color = "white",
@@ -23,5 +23,5 @@ darken(.theme = ggplot2::theme_get(), background = "black",
 Theme with dark mode elements
 }
 \description{
-Enable dark mode of a ggplot2 theme
+Activate dark mode on a ggplot2 theme
 }

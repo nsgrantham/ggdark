@@ -29,7 +29,7 @@ library(ggdark)
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + 
   geom_point(aes(color = Species))
 
-p  # theme_gray(), the default
+p  # theme_gray(), the active theme returned by theme_get()
 ```
 
 ![](man/figures/gray-1.png)
@@ -91,7 +91,7 @@ library(magrittr)
 p + theme_minimal() %>% darken()  # darkens theme_minimal()
 ```
 
-Setting the theme also circumvents this problem.
+You can also set a new active theme.
 
 ``` r
 theme_set(theme_minimal())

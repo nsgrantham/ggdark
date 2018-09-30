@@ -1,4 +1,14 @@
-#' Enable dark mode of a ggplot2 theme
+#' ggdark: Dark mode for ggplot2 themes
+#'
+#' The only function you're likely to need from ggdark is [darken()]
+#' which activates dark mode on your favorite ggplot2 theme. See the
+#' README at github.com/nsgrantham/ggdark for more information.
+#'
+#' @docType package
+#' @name ggdark
+NULL
+
+#' Activate dark mode on a ggplot2 theme
 #'
 #' @param .theme ggplot2 theme object
 #' @param background Background fill
@@ -104,8 +114,8 @@ update_geom_colors <- function(fill, color, colour = color) {
   geoms <- c("abline", "area", "bar", "boxplot", "col", "crossbar",
              "density", "dotplot", "errorbar", "hline", "label",
              "line", "linerange", "map", "path", "point", "polygon",
-             "rect", "ribbon", "rug", "segment", "step", "text",
-             "tile", "violin", "vline")
+             "rect", "ribbon", "rug", "segment", "sf", "step",
+             "text", "tile", "violin", "vline")
 
   for (geom in geoms) {
     ggplot2::update_geom_defaults(geom, list(colour = colour, fill = fill))

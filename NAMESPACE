@@ -2,8 +2,6 @@
 
 export(darken)
 export(greyscale_complement)
-export(greyscale_complement_hex)
-export(greyscale_complement_name)
 export(restore_geom_colors)
 export(restore_geom_colours)
 export(update_geom_colors)

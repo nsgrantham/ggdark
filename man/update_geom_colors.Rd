@@ -19,6 +19,25 @@ update_geom_colours(fill, color, colour = color)
 \description{
 Update geom defaults for fill and color/colour
 }
+\examples{
+library(ggplot2)
+
+p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point() +
+  facet_wrap(~ Species)
+
+# geom colors are updated by ggdark::darken if its
+# update_geoms arg is TRUE
+p2 + darken()  # update_geoms = TRUE by default
+
+# you can update the geoms outside of darken, but make
+# sure they're not overwritten when darken is run again
+update_geom_colors(color = "orange", fill = "gold")
+p2 + darken(update_geoms = FALSE)
+
+restore_geom_colors()  # update_geom_colors(fill = "black", color = "black")
+
+}
 \seealso{
 [update_geom_colours()]
 }

@@ -7,8 +7,16 @@
 greyscale_complement_name(color)
 }
 \arguments{
-\item{color}{Greyscale color to complement}
+\item{color}{Greyscale color to complement (name)}
+}
+\value{
+Complementary greyscale color (name)
 }
 \description{
 Get greyscale complement to color by name
+}
+\examples{
+# Wrapped by greyscale_compelement
+greyscale_complement("grey80")  # calls greyscale_complement_name
+
 }

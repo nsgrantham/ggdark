@@ -12,3 +12,19 @@ restore_geom_colours()
 \description{
 Restore the geom defaults of fill = "white and color = "black"
 }
+\examples{
+library(ggplot2)
+
+p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point() +
+  facet_wrap(~ Species)
+
+p2 + darken()  # updates geom fill = "white", color = "white"
+p2  # oh no! we can't see the points anymore because they are white on white
+restore_geom_colors()
+p2  # back to normal
+
+}
+\seealso{
+[restore_geom_colours()]
+}

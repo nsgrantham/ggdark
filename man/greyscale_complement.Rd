@@ -9,6 +9,20 @@ greyscale_complement(color)
 \arguments{
 \item{color}{Greyscale color to complement}
 }
+\value{
+Complementary greyscale color
+}
 \description{
 Get greyscale complement
+}
+\examples{
+greyscale_complement("white")    # "black"
+greyscale_complement("black")    # "white"
+greyscale_complement("gray20")   # "gray80"
+greyscale_complement("grey20")   # "grey80"
+greyscale_complement("indigo")   # "indigo" (not on greyscale, so not complemented)
+greyscale_complement("#000000")  # "#FFFFFF"
+greyscale_complement("#333333")  # "#CCCCCC"
+greyscale_complement("#4B0082")  # "#4B0082" (not on greyscale, so not complemented)
+
 }

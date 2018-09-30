@@ -7,8 +7,16 @@
 greyscale_complement_hex(color)
 }
 \arguments{
-\item{color}{Greyscale color to complement}
+\item{color}{Greyscale color to complement (hexcode)}
+}
+\value{
+Complementary greyscale color (hexcode)
 }
 \description{
 Get greyscale complement to color by hexcode
+}
+\examples{
+# Wrapped by greyscale_compelement
+greyscale_complement("#333333")  # calls greyscale_complement_hex
+
 }

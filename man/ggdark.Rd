@@ -4,9 +4,12 @@
 \name{ggdark}
 \alias{ggdark}
 \alias{ggdark-package}
-\title{ggdark: Dark mode for ggplot2 themes}
+\title{[ggdark]: Dark mode for ggplot2}
 \description{
-The only function you're likely to need from ggdark is [darken()]
-which activates dark mode on your favorite ggplot2 theme. See the
-README at github.com/nsgrantham/ggdark for more information.
+Use [dark_mode()] on your favorite ggplot2 theme to activate its dark mode.
+[ggdark] also provides dark versions of the themes included in ggplot2:
+[dark_theme_grey()], [dark_theme_bw()], [dark_theme_minimal()], and others.
+When a dark theme is applied, all geom color and geom fill defaults are changed
+to make them visible against a dark background. To restore the defaults to
+their original values, use [update_geom_colors()].
 }

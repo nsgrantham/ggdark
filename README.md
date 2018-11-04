@@ -5,8 +5,6 @@ ggdark
 
 [![Travis-CI Build Status](https://travis-ci.org/nsgrantham/ggdark.svg?branch=master)](https://travis-ci.org/nsgrantham/ggdark) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/nsgrantham/ggdark?branch=master&svg=true)](https://ci.appveyor.com/project/nsgrantham/ggdark)
 
-Activate dark mode on your favorite ggplot2 theme with `ggdark::darken`.
-
 Installation
 ------------
 
@@ -17,92 +15,179 @@ You can install ggdark from github with:
 devtools::install_github("nsgrantham/ggdark")
 ```
 
-Dark mode
----------
-
-`darken` acts on a ggplot2 theme and inverts its colors. It is not itself a ggplot2 theme.
+Dark mode for ggplot2
+---------------------
 
 ``` r
 library(ggplot2)
-library(ggdark)
 
-p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + 
-  geom_point(aes(color = Species))
+p <- ggplot(diamonds, aes(carat, price)) + 
+  geom_point(aes(color = cut))
 
-p  # theme_gray(), the active theme returned by theme_get()
+p + theme_gray()  # ggplot default
 ```
 
 ![](man/figures/gray-1.png)
 
 ``` r
-p + darken()  # activate dark mode on theme_gray()
+library(ggdark)
+
+p + dark_theme_gray()  # the dark version
+#> Geom defaults updated to fill = 'white', color = 'white'.
+#> To restore the original values, use update_geom_colors().
 ```
 
-![](man/figures/darken-gray-1.png)
+![](man/figures/dark-gray-1.png)
 
 ``` r
-p + darken(theme_minimal())  # darken a different ggplot2 theme
+# modify the theme to your liking, as you would in ggplot2
+p + dark_theme_gray(base_family = "Arial Narrow", base_size = 14) + 
+  theme(plot.background = element_rect(fill = "grey20"),
+        panel.background = element_blank(),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        legend.position = c(0.85, 0.2))
 ```
 
-![](man/figures/darken-minimal-1.png)
+![](man/figures/add-element-1.png)
+
+Dark themes
+-----------
+
+ggdark provides dark versions of all themes available in ggplot2:
 
 ``` r
-p + darken(theme_minimal(), background = "grey20")  # lighten black background
+mtcars2 <- within(mtcars, {
+  vs <- factor(vs, labels = c("V-shaped", "Straight"))
+  am <- factor(am, labels = c("Automatic", "Manual"))
+  cyl  <- factor(cyl)
+  gear <- factor(gear)
+})
+
+p <- ggplot(mtcars2) +
+  geom_point(aes(x = wt, y = mpg, colour = gear)) +
+  facet_grid(vs ~ am) +
+  labs(title = "Fuel economy declines as weight increases",
+       subtitle = "(1973-74)",
+       caption = "Data from the 1974 Motor Trend US magazine.",
+       x = "Weight (1000 lbs)",
+       y = "Fuel economy (mpg)",
+       tag = "Figure 1",
+       colour = "Gears")
 ```
 
-![](man/figures/grey-background-1.png)
+``` r
+p + dark_theme_gray()
+```
 
-In addition to inverting colors of theme elements, `darken` redefines the default values of geom fill and geom color from `"black"` to `"white"`. This makes the geoms visible against the dark background.
+![](man/figures/all-themes-1.png)
 
 ``` r
+p + dark_theme_bw()
+```
+
+![](man/figures/all-themes-2.png)
+
+``` r
+p + dark_theme_linedraw()
+```
+
+![](man/figures/all-themes-3.png)
+
+``` r
+p + dark_theme_light()  # quite dark
+```
+
+![](man/figures/all-themes-4.png)
+
+``` r
+p + dark_theme_dark()  # quite light
+```
+
+![](man/figures/all-themes-5.png)
+
+``` r
+p + dark_theme_minimal()
+```
+
+![](man/figures/all-themes-6.png)
+
+``` r
+p + dark_theme_classic()
+```
+
+![](man/figures/all-themes-7.png)
+
+``` r
+p + dark_theme_void()
+```
+
+![](man/figures/all-themes-8.png)
+
+Dark mode on any theme
+----------------------
+
+Any theme can have its dark mode activated with `dark_mode`. Here we apply it to themes from the `ggthemes` and `hrbrthemes` packages.
+
+``` r
+update_geom_colors()
+#> Geom defaults updated to fill = 'black', color = 'black'.
+
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +
   facet_wrap(~ Species)
-
-p + darken()  # geom color is now white
 ```
 
-![](man/figures/white-geom-color-1.png)
-
 ``` r
-p + darken(geom_color = "grey80")  # or perhaps a light grey 
+library(ggthemes)
+
+p + theme_fivethirtyeight()
 ```
 
-![](man/figures/grey-geom-color-1.png)
-
-Restore the geom colors to their ggplot2 defaults with
-
-    restore_geom_colors()  # fill = "black", color = "black"
-
-Take note
----------
-
-`darken` must act directly on the theme it is modifying, layering does not work.
+![](man/figures/fivethirtyeight-1.png)
 
 ``` r
-# darken is not aware of theme_minimal() and will darken the theme returned by theme_get()
-p + theme_minimal() + darken()  # darkens theme_gray(), the active theme
+p + dark_mode(theme_fivethirtyeight())
+#> Geom defaults updated to fill = 'white', color = 'white'.
+#> To restore the original values, use update_geom_colors().
 ```
 
-You can use the pipe operator `%>%` from `magrittr`.
+![](man/figures/dark-fivethirtyeight-1.png)
 
 ``` r
-library(magrittr)
-p + theme_minimal() %>% darken()  # darkens theme_minimal()
+update_geom_colors()
+#> Geom defaults updated to fill = 'black', color = 'black'.
 ```
 
-You can also set a new active theme.
+``` r
+library(hrbrthemes)
+#> NOTE: Either Arial Narrow or Roboto Condensed fonts are *required* to use these themes.
+#>       Please use hrbrthemes::import_roboto_condensed() to install Roboto Condensed and
+#>       if Arial Narrow is not on your system, please see http://bit.ly/arialnarrow
+
+p + theme_ipsum_rc()
+```
+
+![](man/figures/ipsum-rc-1.png)
 
 ``` r
-theme_set(theme_minimal())
-p + darken()  # darkens theme_minimal(), as it is now returned by theme_get()
+p + dark_mode(theme_ipsum_rc(), geom_color = "grey80")  # custom geom color
+#> Geom defaults updated to fill = 'white', color = 'white'.
+#> To restore the original values, use update_geom_colors().
+```
 
-# why not turn on dark mode for all plots? :)
-theme_set(darken(theme_minimal()))
-p  # dark
+![](man/figures/dark-ipsum-rc-1.png)
+
+``` r
+update_geom_colors()
+#> Geom defaults updated to fill = 'black', color = 'black'.
 ```
 
 License
 -------
 
 MIT + file LICENSE
+
+------------------------------------------------------------------------
+
+Happy plotting! 🖤

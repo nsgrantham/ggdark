@@ -9,6 +9,12 @@ dark_mode(theme = theme_get(), geom_colour = "white",
 }
 \arguments{
 \item{theme}{ggplot2 theme object}
+
+\item{geom_colour}{alias of geom_color}
+
+\item{geom_color}{new geom color}
+
+\item{geom_fill}{new geom fill}
 }
 \value{
 dark version of theme
@@ -24,8 +30,6 @@ p1 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 
 p1  # theme_gray(), the default
 p1 + dark_mode()  # activate dark mode on theme_gray()
-p1 + dark_mode(theme_minimal())  # darken a different ggplot2 theme
-p1 + dark_mode(theme_minimal()) + theme(plot.background = element_rect(fill = "grey20"))
 
 p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +

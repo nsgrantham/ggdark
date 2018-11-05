@@ -13,25 +13,35 @@
 \alias{dark_theme_linedraw}
 \title{Complete dark themes}
 \usage{
-dark_theme_bw(...)
+dark_theme_bw(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_classic(...)
+dark_theme_classic(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_gray(...)
+dark_theme_gray(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_grey(...)
+dark_theme_grey(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_minimal(...)
+dark_theme_minimal(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_light(...)
+dark_theme_light(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_dark(...)
+dark_theme_dark(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_void(...)
+dark_theme_void(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_test(...)
+dark_theme_test(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-dark_theme_linedraw(...)
+dark_theme_linedraw(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 }
 \arguments{
 \item{base_size}{base font size}
@@ -50,7 +60,7 @@ an existing theme.
 \details{
 \describe{
 
-\item{dark_theme_gray}{
+\item{`dark_theme_gray`}{
 Dark version of `theme_gray`, the signature ggplot2 theme with a grey background and white gridlines,
 designed to put the data forward yet make comparisons easy.}
 
@@ -87,6 +97,8 @@ for new features.}
 }
 }
 \examples{
+library(ggplot2)
+
 mtcars2 <- within(mtcars, {
   vs <- factor(vs, labels = c("V-shaped", "Straight"))
   am <- factor(am, labels = c("Automatic", "Manual"))

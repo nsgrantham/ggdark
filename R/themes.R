@@ -9,10 +9,12 @@
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
 #'
+#' @importFrom ggplot2 ggplot
+#'
 #' @details
 #' \describe{
 #'
-#' \item{dark_theme_gray}{
+#' \item{`dark_theme_gray`}{
 #' Dark version of `theme_gray`, the signature ggplot2 theme with a grey background and white gridlines,
 #' designed to put the data forward yet make comparisons easy.}
 #'
@@ -49,6 +51,8 @@
 #' }
 #'
 #' @examples
+#' library(ggplot2)
+#'
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))
 #'   am <- factor(am, labels = c("Automatic", "Manual"))
@@ -92,46 +96,78 @@
 #' @aliases NULL
 NULL
 
+#' @importFrom ggplot2 theme_bw
 #' @export
 #' @rdname ggdarktheme
-dark_theme_bw <- function(...) dark_mode(theme_bw(...))
+dark_theme_bw <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                          base_rect_size = base_size/22) {
+  dark_mode(theme_bw(base_size, base_family, base_line_size, base_rect_size))
+}
 
+#' @importFrom ggplot2 theme_classic
 #' @export
 #' @rdname ggdarktheme
-dark_theme_classic <- function(...) dark_mode(theme_classic(...))
+dark_theme_classic <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                               base_rect_size = base_size/22) {
+  dark_mode(theme_classic(base_size, base_family, base_line_size, base_rect_size))
+}
 
+#' @importFrom ggplot2 theme_gray
 #' @export
 #' @rdname ggdarktheme
-dark_theme_gray <- function(...) dark_mode(theme_gray(...))
+dark_theme_gray <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                            base_rect_size = base_size/22) {
+  dark_mode(theme_gray(base_size, base_family, base_line_size, base_rect_size))
+}
 
 #' @export
 #' @rdname ggdarktheme
 dark_theme_grey <- dark_theme_gray
 
+#' @importFrom ggplot2 theme_minimal
 #' @export
 #' @rdname ggdarktheme
-dark_theme_minimal <- function(...) {
-  dark_mode(theme_minimal(...))
+dark_theme_minimal <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                               base_rect_size = base_size/22) {
+  dark_mode(theme_minimal(base_size, base_family, base_line_size, base_rect_size))
 }
 
+#' @importFrom ggplot2 theme_light
 #' @export
 #' @rdname ggdarktheme
-dark_theme_light <- function(...) dark_mode(theme_light(...))
-
-#' @export
-#' @rdname ggdarktheme
-dark_theme_dark <- function(...) dark_mode(theme_dark(...))
-
-#' @export
-#' @rdname ggdarktheme
-dark_theme_void <- function(...) {
-  dark_mode(theme_void(...))
+dark_theme_light <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                             base_rect_size = base_size/22) {
+  dark_mode(theme_light(base_size, base_family, base_line_size, base_rect_size))
 }
 
+#' @importFrom ggplot2 theme_dark
 #' @export
 #' @rdname ggdarktheme
-dark_theme_test <- function(...) dark_mode(theme_test(...))
+dark_theme_dark <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                            base_rect_size = base_size/22) {
+  dark_mode(theme_dark(base_size, base_family, base_line_size, base_rect_size))
+}
 
+#' @importFrom ggplot2 theme_void
 #' @export
 #' @rdname ggdarktheme
-dark_theme_linedraw <- function(...) dark_mode(theme_linedraw(...))
+dark_theme_void <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                            base_rect_size = base_size/22) {
+  dark_mode(theme_void(base_size, base_family, base_line_size, base_rect_size))
+}
+
+#' @importFrom ggplot2 theme_test
+#' @export
+#' @rdname ggdarktheme
+dark_theme_test <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                            base_rect_size = base_size/22) {
+  dark_mode(theme_test(base_size, base_family, base_line_size, base_rect_size))
+}
+
+#' @importFrom ggplot2 theme_linedraw
+#' @export
+#' @rdname ggdarktheme
+dark_theme_linedraw <- function(base_size = 11, base_family = "", base_line_size = base_size/22,
+                                base_rect_size = base_size/22) {
+  dark_mode(theme_linedraw(base_size, base_family, base_line_size, base_rect_size))
+}

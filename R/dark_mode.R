@@ -1,6 +1,9 @@
 #' Activate dark mode on a ggplot2 theme
 #'
 #' @param theme ggplot2 theme object
+#' @param geom_color new geom color
+#' @param geom_colour alias of geom_color
+#' @param geom_fill new geom fill
 #'
 #' @return dark version of theme
 #'
@@ -15,8 +18,6 @@
 #'
 #' p1  # theme_gray(), the default
 #' p1 + dark_mode()  # activate dark mode on theme_gray()
-#' p1 + dark_mode(theme_minimal())  # darken a different ggplot2 theme
-#' p1 + dark_mode(theme_minimal()) + theme(plot.background = element_rect(fill = "grey20"))
 #'
 #' p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 #'   geom_point() +
@@ -144,7 +145,7 @@ update_geom_colours <- update_geom_colors
 #' invert_color("white")    # "black"
 #' invert_color("gray20")   # "gray80"
 #' invert_color("grey80")   # "grey20"
-#' invert_color(c("#000000", #333333"))  # "#FFFFFF","#CCCCCC"
+#' invert_color(c("#000000", "#333333"))  # "#FFFFFF","#CCCCCC"
 #'
 #' @export
 #' @rdname invert_color

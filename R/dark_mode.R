@@ -4,6 +4,7 @@
 #' @param geom_color new geom color
 #' @param geom_colour alias of geom_color
 #' @param geom_fill new geom fill
+#' @param verbose print messages (default: TRUE)
 #'
 #' @return dark version of theme
 #'
@@ -30,10 +31,10 @@
 #'
 #' @rdname dark_mode
 #' @export
-dark_mode <- function(.theme = theme_get(), geom_colour = "white",
-                      geom_color = geom_colour, geom_fill = "white") {
+dark_mode <- function(.theme = theme_get(), geom_color = "white", geom_colour = geom_color,
+                      geom_fill = "white", verbose = TRUE) {
   stopifnot(is.theme(.theme))
-  update_geom_colors(colour = geom_colour, fill = geom_fill)
+  update_geom_colors(color = geom_colour, fill = geom_fill, verbose = verbose)
   invert_theme_elements(.theme)
 }
 
@@ -72,6 +73,7 @@ invert_theme_elements <- function(.theme) {
 #' @param fill new geom fill
 #' @param color new geom color
 #' @param colour alias of color
+#' @param verbose print messages (default: TRUE)
 #'
 #' @return List of geoms and their new defaults for fill and color/colour (invisibly returned)
 #'
@@ -98,7 +100,7 @@ invert_theme_elements <- function(.theme) {
 #'
 #' @export
 #' @rdname update_geom_colors
-update_geom_colors <- function(color = "black", colour = color, fill = "black") {
+update_geom_colors <- function(color = "black", colour = color, fill = "black", verbose = TRUE) {
   geoms <- c("abline", "area", "bar", "boxplot", "col", "crossbar",
              "density", "dotplot", "errorbar", "hline", "label",
              "line", "linerange", "map", "path", "point", "polygon",
@@ -114,7 +116,7 @@ update_geom_colors <- function(color = "black", colour = color, fill = "black") 
       update_geom_defaults(geom, geom_colors[[geom]])
     }
   }
-  if (any_updated_geoms) {
+  if (any_updated_geoms & verbose) {
     message(paste0("Geom defaults updated to fill = '", fill, "', color = '", colour, "'."))
     if (!all(c(colour, fill) %in% c("black", "#000000"))) {
       message(paste0("To restore the original values, use update_geom_colors()."))

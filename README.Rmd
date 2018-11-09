@@ -32,7 +32,13 @@ devtools::install_github("nsgrantham/ggdark")
 library(ggplot2)
 
 p <- ggplot(diamonds, aes(carat, price)) + 
-  geom_point(aes(color = cut))
+  geom_point(aes(color = cut)) + 
+  scale_y_continuous(label = scales::dollar) +
+  guides(color = guide_legend(reverse = TRUE)) +
+  labs(title = "Prices of 50,000 round cut diamonds by carat and cut",
+       x = "Weight (carats)",
+       y = "Price in US dollars",
+       color = "Quality of the cut")
 
 p + theme_gray()  # ggplot default
 ```
@@ -45,12 +51,16 @@ p + dark_theme_gray()  # the dark version
 
 ```{r add-element, fig.path="man/figures/"}
 # modify the theme to your liking, as you would in ggplot2
-p + dark_theme_gray(base_family = "Arial Narrow", base_size = 14) + 
-  theme(plot.background = element_rect(fill = "grey20"),
+p + dark_theme_gray(base_family = "Fira Sans Condensed Light", base_size = 14) + 
+  theme(plot.title = element_text(family = "Fira Sans Condensed"),
+        plot.background = element_rect(fill = "grey10"),
         panel.background = element_blank(),
+        panel.grid.major = element_line(color = "grey30", size = 0.2),
+        panel.grid.minor = element_line(color = "grey30", size = 0.2),
         legend.background = element_blank(),
+        axis.ticks = element_blank(),
         legend.key = element_blank(),
-        legend.position = c(0.85, 0.2))
+        legend.position = c(0.815, 0.27))
 ```
 
 ## Dark themes
@@ -73,7 +83,6 @@ p <- ggplot(mtcars2) +
        caption = "Data from the 1974 Motor Trend US magazine.",
        x = "Weight (1000 lbs)",
        y = "Fuel economy (mpg)",
-       tag = "Figure 1",
        colour = "Gears")
 ```
 
@@ -88,26 +97,30 @@ p + dark_theme_classic()
 p + dark_theme_void()
 ```
 
-## Dark mode on any theme
+## Make your own dark theme
 
-Any theme can have its dark mode activated with `dark_mode`. Here we apply it to themes from the `ggthemes` and `hrbrthemes` packages. 
+Use`dark_mode` on any theme to create its dark version.
 
 ```{r update1, fig.path="man/figures/"}
 update_geom_colors()
 
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +
-  facet_wrap(~ Species)
+  facet_wrap(~ Species) +
+  labs(title = "Iris virginica shows the greatest variation in sepal size",
+       y = "Length of sepal (cm)",
+       x = "Width of sepal (cm)")
 ```
 
 ```{r fivethirtyeight, fig.path="man/figures/"}
+# install.packages("ggthemes")
 library(ggthemes)
 
 p + theme_fivethirtyeight()
 ```
 
 ```{r dark-fivethirtyeight, fig.path="man/figures/"}
-p + dark_mode(theme_fivethirtyeight())
+p + dark_mode(theme_fivethirtyeight(), geom_color = "purple")  # custom geom color
 ```
 
 ```{r update2, fig.path="man/figures/"}
@@ -115,22 +128,19 @@ update_geom_colors()
 ```
 
 ```{r ipsum-rc, fig.path="man/figures/"}
+# install.packages("hrbrthemes")
 library(hrbrthemes)
 
 p + theme_ipsum_rc()
 ```
 
 ```{r dark-ipsum-rc, fig.path="man/figures/"}
-p + dark_mode(theme_ipsum_rc(), geom_color = "grey80")  # custom geom color
+p + dark_mode(theme_ipsum_rc(), verbose = FALSE)  # do not print update messages
 ```
 
 ```{r update3, fig.path="man/figures/"}
-update_geom_colors()
+update_geom_colors(verbose = FALSE)  # do not print update messages
 ```
-
-## License
-
-MIT + file LICENSE
 
 ---
 

@@ -5,9 +5,11 @@
 \alias{update_geom_colours}
 \title{Update geom defaults for fill and color/colour}
 \usage{
-update_geom_colors(color = "black", colour = color, fill = "black")
+update_geom_colors(color = "black", colour = color, fill = "black",
+  verbose = TRUE)
 
-update_geom_colours(color = "black", colour = color, fill = "black")
+update_geom_colours(color = "black", colour = color, fill = "black",
+  verbose = TRUE)
 }
 \arguments{
 \item{color}{new geom color}
@@ -15,6 +17,8 @@ update_geom_colours(color = "black", colour = color, fill = "black")
 \item{colour}{alias of color}
 
 \item{fill}{new geom fill}
+
+\item{verbose}{print messages (default: TRUE)}
 }
 \value{
 List of geoms and their new defaults for fill and color/colour (invisibly returned)

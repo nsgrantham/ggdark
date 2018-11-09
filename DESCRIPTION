@@ -7,12 +7,15 @@ Maintainer: Neal Grantham <neal@nsgrantham.com>
 Description: Activate dark mode on your favorite ggplot2 theme 
              with dark_mode or use the dark versions of all
              ggplot2 themes, including dark_theme_gray,
-             dark_theme_minimal, and others.
+             dark_theme_minimal, and others. When a dark theme 
+             is applied, all geom color and geom fill defaults 
+             are changed to make them visible against a dark 
+             background. To restore the defaults to their original 
+             values, use update_geom_colors.
 License: MIT + file LICENSE
 Depends: R (>= 3.1)
-Imports: 
-  ggplot2 (>= 3.0),
-  grDevices
+Imports: ggplot2 (>= 3.0)
+Suggests: testthat
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0

@@ -4,10 +4,10 @@
 \alias{invert_theme_elements}
 \title{Invert theme elements}
 \usage{
-invert_theme_elements(theme)
+invert_theme_elements(.theme)
 }
 \arguments{
-\item{theme}{theme to invert}
+\item{.theme}{theme to invert}
 }
 \value{
 Inverted theme

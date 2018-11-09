@@ -4,11 +4,11 @@
 \alias{dark_mode}
 \title{Activate dark mode on a ggplot2 theme}
 \usage{
-dark_mode(theme = theme_get(), geom_colour = "white",
+dark_mode(.theme = theme_get(), geom_colour = "white",
   geom_color = geom_colour, geom_fill = "white")
 }
 \arguments{
-\item{theme}{ggplot2 theme object}
+\item{.theme}{ggplot2 theme object}
 
 \item{geom_colour}{alias of geom_color}
 

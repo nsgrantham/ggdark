@@ -1,6 +1,6 @@
 #' Activate dark mode on a ggplot2 theme
 #'
-#' @param theme ggplot2 theme object
+#' @param .theme ggplot2 theme object
 #' @param geom_color new geom color
 #' @param geom_colour alias of geom_color
 #' @param geom_fill new geom fill
@@ -30,16 +30,16 @@
 #'
 #' @rdname dark_mode
 #' @export
-dark_mode <- function(theme = theme_get(), geom_colour = "white",
+dark_mode <- function(.theme = theme_get(), geom_colour = "white",
                       geom_color = geom_colour, geom_fill = "white") {
-  stopifnot(is.theme(theme))
+  stopifnot(is.theme(.theme))
   update_geom_colors(colour = geom_colour, fill = geom_fill)
-  invert_theme_elements(theme)
+  invert_theme_elements(.theme)
 }
 
 #' Invert theme elements
 #'
-#' @param theme theme to invert
+#' @param .theme theme to invert
 #'
 #' @importFrom ggplot2 theme element_rect
 #'
@@ -47,23 +47,23 @@ dark_mode <- function(theme = theme_get(), geom_colour = "white",
 #'
 #' @export
 #' @rdname invert_theme_elements
-invert_theme_elements <- function(theme) {
-  stopifnot(is.theme(theme))
-  for (element_name in names(theme)) {
-    element <- theme[[element_name]]
+invert_theme_elements <- function(.theme) {
+  stopifnot(is.theme(.theme))
+  for (element_name in names(.theme)) {
+    element <- .theme[[element_name]]
     if (inherits(element, "element")) {  # element_line, element_rect, element_text, element_blank
       if (!is.null(element$colour)) {
-        theme[[element_name]]$colour <- invert_color(element$colour)
+        .theme[[element_name]]$colour <- invert_color(element$colour)
       }
       if (!is.null(element$fill)) {
-        theme[[element_name]]$fill <- invert_color(element$fill)
+        .theme[[element_name]]$fill <- invert_color(element$fill)
       }
     }
   }
-  if (inherits(theme$plot.background, "element_blank") | is.null(theme$plot.background)) {
-    theme <- theme + theme(plot.background = element_rect(fill = "#000000"))  # black
+  if (inherits(.theme$plot.background, "element_blank") | is.null(.theme$plot.background)) {
+    .theme <- .theme + theme(plot.background = element_rect(fill = "#000000"))  # black
   }
-  theme
+  .theme
 }
 
 

@@ -4,19 +4,15 @@
 \alias{dark_mode}
 \title{Activate dark mode on a ggplot2 theme}
 \usage{
-dark_mode(.theme = theme_get(), geom_color = "white",
-  geom_colour = geom_color, geom_fill = "white", verbose = TRUE)
+dark_mode(.theme = theme_get(), verbose = TRUE,
+  force_geom_invert = FALSE)
 }
 \arguments{
 \item{.theme}{ggplot2 theme object}
 
-\item{geom_color}{new geom color}
-
-\item{geom_colour}{alias of geom_color}
-
-\item{geom_fill}{new geom fill}
-
 \item{verbose}{print messages (default: TRUE)}
+
+\item{force_geom_invert}{Force the inversion of geom defaults for fill and color/colour (default: FALSE)}
 }
 \value{
 dark version of theme
@@ -27,8 +23,8 @@ Activate dark mode on a ggplot2 theme
 \examples{
 library(ggplot2)
 
-p1 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
-  geom_point(aes(color = Species))
+p1 <- ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point()
 
 p1  # theme_gray(), the default
 p1 + dark_mode()  # activate dark mode on theme_gray()
@@ -37,9 +33,7 @@ p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +
   facet_wrap(~ Species)
 
-p2 + dark_mode()  # geom color is white
-p2 + dark_mode(geom_color = "grey80")  # or perhaps a light grey
+p2 + dark_mode(theme_minimal())  # activate dark mode on another theme
 
-update_geom_colors()  # restore defaults fill = "black", color = "black"
-
+invert_geom_defaults()  # restore geom defaults to their original values
 }

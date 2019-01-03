@@ -1,5 +1,7 @@
 context("Verify dark_mode operates as expected.")
 
+library(ggplot2)
+
 light_theme <- theme_void() +
   theme(plot.background = element_rect(fill = "#FFFFFF", color = "#D3D3D3"),
         panel.grid.major = element_line(color = "#CCCCCC"),
@@ -33,31 +35,16 @@ test_that("dark_mode adds a black plot background if missing", {
   expect_equal(dark_theme_null$plot.background$fill, "#000000")
 })
 
-update_geom_colors()
+invert_geom_defaults()
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + geom_point()
 
-test_that("update_geom_colors changes fill and colour to 'black'", {
-  expect_equal(p$layers[[1]]$geom$default_aes$fill, "black")
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "black")
+test_that("invert_geom_defaults changes fill and colour to 'black'", {
+  expect_equal(p$layers[[1]]$geom$default_aes$colour, "#000000")
 })
 
 p + dark_mode()
 
 test_that("Activating dark mode updates the geom fill and color defaults", {
-  expect_equal(p$layers[[1]]$geom$default_aes$fill, "white")
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "white")
+  expect_equal(p$layers[[1]]$geom$default_aes$colour, "#FFFFFF")
 })
 
-update_geom_colors(fill = "grey20", color = "grey50")
-
-test_that("update_geom_colors accepts custom values", {
-  expect_equal(p$layers[[1]]$geom$default_aes$fill, "grey20")
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "grey50")
-})
-
-update_geom_colours(fill = "grey80", colour = "grey80")
-
-test_that("update_geom_colour alias works just as update_geom_color", {
-  expect_equal(p$layers[[1]]$geom$default_aes$fill, "grey80")
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "grey80")
-})

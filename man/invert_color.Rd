@@ -18,9 +18,9 @@ invert_colour(color, colour = color)
 Inverted color(s) in hex code
 }
 \description{
-Invert a vector of colors, provided the colors have valid names
-(i.e., belongs to [base::colors()]) or valid hex codes, returning
-a vector of inverted colors in hex code.
+Invert a vector of colors, provided the colors are valid hex codes
+or have valid names (i.e., they belong to [base::colors()]), and
+return a vector of inverted colors in hex code.
 }
 \examples{
 invert_color("white")    # "black"
@@ -29,4 +29,3 @@ invert_color("grey80")   # "grey20"
 invert_color(c("#000000", "#333333"))  # "#FFFFFF","#CCCCCC"
 
 }
-\keyword{internal}

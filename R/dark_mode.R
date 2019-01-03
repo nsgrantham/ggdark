@@ -1,21 +1,19 @@
 #' Activate dark mode on a ggplot2 theme
 #'
 #' @param .theme ggplot2 theme object
-#' @param geom_color new geom color
-#' @param geom_colour alias of geom_color
-#' @param geom_fill new geom fill
 #' @param verbose print messages (default: TRUE)
+#' @param force_geom_invert Force the inversion of geom defaults for fill and color/colour (default: FALSE)
 #'
 #' @return dark version of theme
 #'
-#' @importFrom ggplot2 theme_get is.theme
+#' @importFrom ggplot2 theme theme_get is.theme element_rect
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
 #'
-#' p1 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
-#'   geom_point(aes(color = Species))
+#' p1 <- ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+#'   geom_point()
 #'
 #' p1  # theme_gray(), the default
 #' p1 + dark_mode()  # activate dark mode on theme_gray()
@@ -24,25 +22,38 @@
 #'   geom_point() +
 #'   facet_wrap(~ Species)
 #'
-#' p2 + dark_mode()  # geom color is white
-#' p2 + dark_mode(geom_color = "grey80")  # or perhaps a light grey
+#' p2 + dark_mode(theme_minimal())  # activate dark mode on another theme
 #'
-#' update_geom_colors()  # restore defaults fill = "black", color = "black"
-#'
+#' invert_geom_defaults()  # restore geom defaults to their original values
 #' @rdname dark_mode
 #' @export
-dark_mode <- function(.theme = theme_get(), geom_color = "white", geom_colour = geom_color,
-                      geom_fill = "white", verbose = TRUE) {
+dark_mode <- function(.theme = theme_get(), verbose = TRUE, force_geom_invert = FALSE) {
   stopifnot(is.theme(.theme))
-  update_geom_colors(color = geom_colour, fill = geom_fill, verbose = verbose)
-  invert_theme_elements(.theme)
+  geoms <- get_geoms()
+  # Detect whether the default value of geom point colour is black. If so, it is likely that
+  # all geom defaults must be inverted, otherwise leave the geoms alone unless force_geom_invert.
+  geoms_not_inverted <- geoms[["GeomPoint"]]$default_aes$colour %in% c("black", "#000000")
+  if (geoms_not_inverted || force_geom_invert) {
+    invert_geom_defaults(geoms)
+    if (verbose) {
+      message("Inverted geom defaults of fill and color/colour.\n",
+              "To change them back, use invert_geom_defaults().")
+    }
+  }
+  .theme <- invert_theme_elements(.theme)
+  if (inherits(.theme$plot.background, "element_blank") | is.null(.theme$plot.background)) {
+    # For a few themes, like theme_minimal and theme_void from ggplot2, the background
+    # is blank or NULL and displays as white, so fill the plot background with black.
+    .theme <- .theme + theme(plot.background = element_rect(fill = "#000000"))
+  }
+  .theme
 }
 
 #' Invert theme elements
 #'
 #' @param .theme theme to invert
 #'
-#' @importFrom ggplot2 theme element_rect
+#' @importFrom ggplot2 is.theme
 #'
 #' @return Inverted theme
 #'
@@ -61,23 +72,15 @@ invert_theme_elements <- function(.theme) {
       }
     }
   }
-  if (inherits(.theme$plot.background, "element_blank") | is.null(.theme$plot.background)) {
-    .theme <- .theme + theme(plot.background = element_rect(fill = "#000000"))  # black
-  }
   .theme
 }
 
 
-#' Update geom defaults for fill and color/colour
+#' Inverse geom defaults for fill and color/colour
 #'
-#' @param fill new geom fill
-#' @param color new geom color
-#' @param colour alias of color
-#' @param verbose print messages (default: TRUE)
+#' @param geoms List of geoms as ggproto objects
 #'
-#' @return List of geoms and their new defaults for fill and color/colour (invisibly returned)
-#'
-#' @importFrom ggplot2 update_geom_defaults
+#' @importFrom ggplot2 is.ggproto
 #'
 #' @examples
 #' library(ggplot2)
@@ -99,42 +102,42 @@ invert_theme_elements <- function(.theme) {
 #' p  # back to normal
 #'
 #' @export
-#' @rdname update_geom_colors
-update_geom_colors <- function(color = "black", colour = color, fill = "black", verbose = TRUE) {
-  geoms <- c("abline", "area", "bar", "boxplot", "col", "crossbar",
-             "density", "dotplot", "errorbar", "hline", "label",
-             "line", "linerange", "map", "path", "point", "polygon",
-             "rect", "ribbon", "rug", "segment", "sf", "step",
-             "text", "tile", "violin", "vline")
-  geom_colors <- list()
-  any_updated_geoms <- FALSE
+#' @rdname invert_geom_defaults
+invert_geom_defaults <- function(geoms = get_geoms()) {
   for (geom in geoms) {
-    g <- ggplot2:::check_subclass(geom, "Geom", env = parent.frame())
-    if (!(colour %in% g$default_aes$colour & fill %in% g$default_aes$fill)) {
-      any_updated_geoms <- TRUE
-      geom_colors[[geom]] <- list(colour = colour, fill = fill)
-      update_geom_defaults(geom, geom_colors[[geom]])
+    stopifnot(is.ggproto(geom))
+    if (!is.null(geom$default_aes$fill)) {
+      geom$default_aes$fill <- invert_color(geom$default_aes$fill)
+    }
+    if (!is.null(geom$default_aes$colour)) {
+      geom$default_aes$colour <- invert_color(geom$default_aes$colour)
     }
   }
-  if (any_updated_geoms & verbose) {
-    message(paste0("Geom defaults updated to fill = '", fill, "', color = '", colour, "'."))
-    if (!all(c(colour, fill) %in% c("black", "#000000"))) {
-      message(paste0("To restore the original values, use update_geom_colors()."))
-    }
-  }
-  invisible(geom_colors)
+  invisible()
 }
 
 #' @export
-#' @rdname update_geom_colors
-update_geom_colours <- update_geom_colors
+#' @keywords internal
+get_geoms <- function() {
+  geom_names <- apropos("^Geom", ignore.case = FALSE)
+  geoms <- list()
+  for (namespace in loadedNamespaces()) {
+    namespace_geoms <- mget(geom_names, envir = asNamespace(namespace), ifnotfound = list(NULL))
+    for (geom_name in geom_names) {
+      if (is.ggproto(namespace_geoms[[geom_name]])) {
+        geoms[[geom_name]] <- namespace_geoms[[geom_name]]
+      }
+    }
+  }
+  geoms
+}
 
 
 #' Invert color(s)
 #'
-#' Invert a vector of colors, provided the colors have valid names
-#' (i.e., belongs to [base::colors()]) or valid hex codes, returning
-#' a vector of inverted colors in hex code.
+#' Invert a vector of colors, provided the colors are valid hex codes
+#' or have valid names (i.e., they belong to [base::colors()]), and
+#' return a vector of inverted colors in hex code.
 #'
 #' @param color color(s) to invert
 #' @param colour alias of color
@@ -151,7 +154,6 @@ update_geom_colours <- update_geom_colors
 #'
 #' @export
 #' @rdname invert_color
-#' @keywords internal
 invert_color <- function(color, colour = color) {
   inv_rgb <- abs(255 - col2rgb(colour))
   inv_color <- rgb(inv_rgb[1, ], inv_rgb[2, ], inv_rgb[3, ], maxColorValue = 255)

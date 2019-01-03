@@ -8,7 +8,7 @@ ggdark
 Installation
 ------------
 
-You can install ggdark from github with:
+You can install ggdark from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -21,8 +21,8 @@ Dark mode for ggplot2
 ``` r
 library(ggplot2)
 
-p <- ggplot(diamonds, aes(carat, price)) + 
-  geom_point(aes(color = cut)) + 
+p <- ggplot(diamonds) + 
+  geom_point(aes(carat, price, color = cut)) + 
   scale_y_continuous(label = scales::dollar) +
   guides(color = guide_legend(reverse = TRUE)) +
   labs(title = "Prices of 50,000 round cut diamonds by carat and cut",
@@ -39,8 +39,8 @@ p + theme_gray()  # ggplot default
 library(ggdark)
 
 p + dark_theme_gray()  # the dark version
-#> Geom defaults updated to fill = 'white', color = 'white'.
-#> To restore the original values, use update_geom_colors().
+#> Inverted geom defaults of fill and color/colour.
+#> To change them back, use invert_geom_defaults().
 ```
 
 ![](man/figures/dark-gray-1.png)
@@ -75,14 +75,14 @@ mtcars2 <- within(mtcars, {
 })
 
 p <- ggplot(mtcars2) +
-  geom_point(aes(x = wt, y = mpg, colour = gear)) +
+  geom_point(aes(wt, mpg, color = gear)) +
   facet_grid(vs ~ am) +
   labs(title = "Fuel economy declines as weight increases",
        subtitle = "(1973-74)",
        caption = "Data from the 1974 Motor Trend US magazine.",
        x = "Weight (1000 lbs)",
        y = "Fuel economy (mpg)",
-       colour = "Gears")
+       color = "Gears")
 ```
 
 ``` r
@@ -139,15 +139,15 @@ Make your own dark theme
 Use`dark_mode` on any theme to create its dark version.
 
 ``` r
-update_geom_colors()
-#> Geom defaults updated to fill = 'black', color = 'black'.
+invert_geom_defaults()  # change geom defaults back to black
 
-p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
-  geom_point() +
-  facet_wrap(~ Species) +
-  labs(title = "Iris virginica shows the greatest variation in sepal size",
-       y = "Length of sepal (cm)",
-       x = "Width of sepal (cm)")
+library(gapminder)
+
+p <- ggplot(subset(gapminder, continent != "Oceania")) +
+  geom_line(aes(year, lifeExp, group = country, color = country), lwd = 1, show.legend = FALSE) + 
+  facet_wrap(~ continent) +
+  scale_color_manual(values = country_colors) +
+  labs(title = "Life expectancy has increased across the globe")
 ```
 
 ``` r
@@ -160,40 +160,15 @@ p + theme_fivethirtyeight()
 ![](man/figures/fivethirtyeight-1.png)
 
 ``` r
-p + dark_mode(theme_fivethirtyeight(), geom_color = "purple")  # custom geom color
-#> Geom defaults updated to fill = 'white', color = 'purple'.
-#> To restore the original values, use update_geom_colors().
+p + dark_mode(theme_fivethirtyeight())
+#> Inverted geom defaults of fill and color/colour.
+#> To change them back, use invert_geom_defaults().
 ```
 
 ![](man/figures/dark-fivethirtyeight-1.png)
 
 ``` r
-update_geom_colors()
-#> Geom defaults updated to fill = 'black', color = 'black'.
+invert_geom_defaults()  # leave the geom defaults how you found them!
 ```
-
-``` r
-# install.packages("hrbrthemes")
-library(hrbrthemes)
-#> NOTE: Either Arial Narrow or Roboto Condensed fonts are *required* to use these themes.
-#>       Please use hrbrthemes::import_roboto_condensed() to install Roboto Condensed and
-#>       if Arial Narrow is not on your system, please see http://bit.ly/arialnarrow
-
-p + theme_ipsum_rc()
-```
-
-![](man/figures/ipsum-rc-1.png)
-
-``` r
-p + dark_mode(theme_ipsum_rc(), verbose = FALSE)  # do not print update messages
-```
-
-![](man/figures/dark-ipsum-rc-1.png)
-
-``` r
-update_geom_colors(verbose = FALSE)  # do not print update messages
-```
-
-------------------------------------------------------------------------
 
 Happy plotting! 🖤

@@ -89,16 +89,11 @@ invert_theme_elements <- function(.theme) {
 #'   geom_point() +
 #'   facet_wrap(~ Species)
 #'
-#' old <- theme_set(dark_mode())  # color and fill changed to "white"
-#' p
+#' p + dark_theme_gray()  # geom defaults changed
 #'
-#' update_geom_colors(color = "grey80", fill = "grey80")  # or perhaps a light grey
-#' p
+#' p + theme_gray()  # oh no! geom defaults are not visible on light background
 #'
-#' theme_set(old)
-#' p  # oh no! geom defaults are still "white"
-#'
-#' update_geom_colors()  # color and fill changed to "black"
+#' invert_geom_defaults()  # geom defaults changed back
 #' p  # back to normal
 #'
 #' @export
@@ -116,7 +111,12 @@ invert_geom_defaults <- function(geoms = get_geoms()) {
   invisible()
 }
 
+#' Get all geoms from loaded namespaces
+#'
+#' @importFrom utils apropos
+#'
 #' @export
+#' @rdname get_geoms
 #' @keywords internal
 get_geoms <- function() {
   geom_names <- apropos("^Geom", ignore.case = FALSE)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{invert_geom_defaults}
 \alias{invert_geom_defaults}
-\title{Inverse geom defaults for fill and color/colour}
+\title{Invert geom defaults for fill and color/colour}
 \usage{
 invert_geom_defaults(geoms = get_geoms())
 }
@@ -10,7 +10,7 @@ invert_geom_defaults(geoms = get_geoms())
 \item{geoms}{List of geoms as ggproto objects}
 }
 \description{
-Inverse geom defaults for fill and color/colour
+Invert geom defaults for fill and color/colour
 }
 \examples{
 library(ggplot2)
@@ -21,9 +21,9 @@ p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 
 p + dark_theme_gray()  # geom defaults changed
 
-p + theme_gray()  # oh no! geom defaults are not visible on light background
+p + theme_gray()  # oh no! geoms are not visible on light background
 
 invert_geom_defaults()  # geom defaults changed back
-p  # back to normal
 
+p + theme_gray() # back to normal
 }

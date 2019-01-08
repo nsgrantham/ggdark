@@ -19,7 +19,7 @@ Inverted color(s) in hex code
 }
 \description{
 Invert a vector of colors, provided the colors are valid hex codes
-or have valid names (i.e., they belong to [base::colors()]), and
+or have valid names (i.e., they belong to base::colors()), and
 return a vector of inverted colors in hex code.
 }
 \examples{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode}
 \alias{dark_mode}
-\title{Activate dark mode on a ggplot2 theme}
+\title{Activate dark mode on a 'ggplot2' theme}
 \usage{
 dark_mode(.theme = theme_get(), verbose = TRUE,
   force_geom_invert = FALSE)
@@ -18,7 +18,7 @@ dark_mode(.theme = theme_get(), verbose = TRUE,
 dark version of theme
 }
 \description{
-Activate dark mode on a ggplot2 theme
+Activate dark mode on a 'ggplot2' theme
 }
 \examples{
 library(ggplot2)

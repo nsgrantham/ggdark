@@ -1,4 +1,4 @@
-#' Activate dark mode on a ggplot2 theme
+#' Activate dark mode on a 'ggplot2' theme
 #'
 #' @param .theme ggplot2 theme object
 #' @param verbose print messages (default: TRUE)
@@ -44,7 +44,7 @@ dark_mode <- function(.theme = theme_get(), verbose = TRUE, force_geom_invert = 
 
   .theme <- invert_theme_elements(.theme)
   if (inherits(.theme$plot.background, "element_blank") | is.null(.theme$plot.background)) {
-    # For a few themes, like theme_minimal and theme_void from ggplot2, the background
+    # For a few themes, like theme_minimal() and theme_void() from 'ggplot2', the background
     # is blank or NULL and displays as white, so fill the plot background with black.
     .theme <- .theme + theme(plot.background = element_rect(fill = "#000000"))
   }

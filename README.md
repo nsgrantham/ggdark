@@ -8,7 +8,13 @@ ggdark
 Installation
 ------------
 
-You can install ggdark from GitHub with:
+You can install ggdark from CRAN with:
+
+``` r
+install.packages("ggdark")
+```
+
+If you want the development version, you can install ggdark from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -147,7 +153,7 @@ p <- ggplot(subset(gapminder, continent != "Oceania")) +
   geom_line(aes(year, lifeExp, group = country, color = country), lwd = 1, show.legend = FALSE) + 
   facet_wrap(~ continent) +
   scale_color_manual(values = country_colors) +
-  labs(title = "Life expectancy has increased across the globe")
+  labs(title = "Life expectancy has increased worldwide")
 ```
 
 ``` r

@@ -19,7 +19,13 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install ggdark from GitHub with:
+You can install ggdark from CRAN with:
+
+```{r cran-installation, eval = FALSE}
+install.packages("ggdark")
+```
+
+If you want the development version, you can install ggdark from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")

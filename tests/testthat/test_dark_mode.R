@@ -68,3 +68,12 @@ test_that("Setting defaults works", {
   p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + geom_point()
   expect_equal(p$layers[[1]]$geom$default_aes$colour, "#FFFFFF")
 })
+
+test_that("Themes are correctly detected as dark" {
+  def_themes <- list(theme_bw(), theme_classic())
+  dark_themes <- list(dark_theme_bw(), dark_theme_classic())
+  def_check <- sapply(def_themes, theme_is_dark)
+  dark_check <- sapply(dark_themes, theme_is_dark)
+  expect_true(!any(def_check))
+  expect_true(all(dark_check))
+})

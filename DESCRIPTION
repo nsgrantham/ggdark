@@ -1,7 +1,7 @@
 Package: ggdark
 Type: Package
 Title: Dark Mode for 'ggplot2' Themes
-Version: 0.2.1.9002
+Version: 0.2.1.9003
 Author: Neal Grantham
 Maintainer: Neal Grantham <neal@nsgrantham.com>
 Description: Activate dark mode on your favorite 'ggplot2' theme 

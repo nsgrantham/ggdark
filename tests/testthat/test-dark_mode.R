@@ -9,7 +9,7 @@ light_theme <- theme_void() +
     axis.text.x = element_text(color = "#C0C0C0")
   )
 
-dark_theme <- dark_mode(light_theme)
+dark_theme <- darken_theme(light_theme)
 
 test_that(
   "dark_mode inverts fill and colour aesthetics of all theme elements", {
@@ -19,7 +19,7 @@ test_that(
   expect_equal(dark_theme$axis.text.x$colour, "#3F3F3F")
 })
 
-light_theme_alt <- dark_mode(dark_theme)
+light_theme_alt <- dark_mode(dark_theme, force_theme_invert = TRUE)
 
 test_that(
   "dark_mode applied twice returns the original fill and colour aesthetics", {
@@ -58,22 +58,4 @@ p + dark_mode()
 
 test_that("Activating dark mode updates the geom fill and color defaults", {
   expect_equal(p$layers[[1]]$geom$default_aes$colour, "#FFFFFF")
-})
-
-test_that("Setting defaults works", {
-  set_geom_defaults(dark = FALSE)
-  p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + geom_point()
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "#000000")
-  set_geom_defaults(dark = TRUE)
-  p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) + geom_point()
-  expect_equal(p$layers[[1]]$geom$default_aes$colour, "#FFFFFF")
-})
-
-test_that("Themes are correctly detected as dark" {
-  def_themes <- list(theme_bw(), theme_classic())
-  dark_themes <- list(dark_theme_bw(), dark_theme_classic())
-  def_check <- sapply(def_themes, theme_is_dark)
-  dark_check <- sapply(dark_themes, theme_is_dark)
-  expect_true(!any(def_check))
-  expect_true(all(dark_check))
 })

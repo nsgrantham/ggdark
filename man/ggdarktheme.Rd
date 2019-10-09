@@ -11,7 +11,6 @@
 \alias{dark_theme_void}
 \alias{dark_theme_test}
 \alias{dark_theme_linedraw}
-\alias{theme_is_dark}
 \title{Complete dark themes}
 \usage{
 dark_theme_bw(base_size = 11, base_family = "",
@@ -53,8 +52,6 @@ dark_theme_test(base_size = 11, base_family = "",
 dark_theme_linedraw(base_size = 11, base_family = "",
   base_line_size = base_size/22, base_rect_size = base_size/22,
   verbose = TRUE)
-
-theme_is_dark(theme)
 }
 \arguments{
 \item{base_size}{base font size}
@@ -66,8 +63,6 @@ theme_is_dark(theme)
 \item{base_rect_size}{base size for rect elements}
 
 \item{verbose}{Whether to inform of geom defaults inversion}
-
-\item{theme}{a ggplot theme}
 }
 \description{
 These are dark versions of complete themes from 'ggplot2' which control all
@@ -94,12 +89,12 @@ existing theme.
   to theme_linedraw() but with light grey lines and axes, to direct more
   attention towards the data.}
 
-  \item{`dark_theme_dark`}{ Dark verion of theme_dark(), the dark cousin of
+  \item{`dark_theme_dark`}{ Dark version of theme_dark(), the dark cousin of
   theme_light(), with similar line sizes but a dark background. Useful to
   make thin coloured lines pop out.}
 
   \item{`dark_theme_minimal`}{ Dark version of theme_minimal(), a
-  minimalistic theme with no background annotations.}
+  minimalist theme with no background annotations.}
 
   \item{`dark_theme_classic`}{ Dark version of theme_classic(), a
   classic-looking theme, with x and y axis lines and no gridlines.}

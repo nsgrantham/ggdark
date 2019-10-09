@@ -2,27 +2,45 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode}
 \alias{dark_mode}
-\title{Activate dark mode on a 'ggplot2' theme}
+\alias{light_mode}
+\title{Activate dark/light mode}
 \usage{
-dark_mode(.theme = theme_get(), verbose = TRUE,
-  force_geom_invert = FALSE)
+dark_mode(.theme = theme_get(), geoms = get_geoms(), verbose = TRUE,
+  force_geom_invert = FALSE, force_theme_invert = FALSE)
+
+light_mode(.theme = theme_get(), geoms = get_geoms(), verbose = TRUE,
+  force_geom_invert = FALSE, force_theme_invert = FALSE)
 }
 \arguments{
-\item{.theme}{ggplot2 theme object}
+\item{.theme}{ggplot2 theme object.}
 
-\item{verbose}{print messages (default: TRUE)}
+\item{geoms}{geoms as a list of ggproto objects.}
+
+\item{verbose}{print messages (default: \code{TRUE}).}
 
 \item{force_geom_invert}{Force the inversion of geom defaults for fill and
-color/colour (default: FALSE)}
+color/colour (default: \code{FALSE}).}
+
+\item{force_theme_invert}{Force the inversion of the theme. (default:
+\code{FALSE}).}
 }
 \value{
-dark version of theme
+Dark version of \code{.theme}
 }
 \description{
-This function will detect whether the default value of geom point colour is
-black. If so, it will invert all geom defaults, otherwise it will
-leave the geoms alone. Use \code{force_geom_invert = TRUE} to invert
-the geoms regardless. Use \code{\link{set_geom_defaults}}
+These functions change theme colors and geom defaults.
+}
+\details{
+To check if geoms are dark-friendly, they checks whether the default value of
+geom point colour is black. If so, \code{dark_mode} will invert all geom
+defaults, otherwise it will leave the geoms alone. Use
+\code{force_geom_invert = TRUE} to invert the geoms regardless.
+
+To check if the theme is dark, they checks whether the default text color is
+black. If so, \code{dark_mode} inverts theme elements. If not, returns
+\code{.theme} unchanged.
+
+\code{light_mode} does the opposite of \code{dark_mode}.
 }
 \examples{
 library(ggplot2)
@@ -39,5 +57,6 @@ p2 <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 
 p2 + dark_mode(theme_minimal()) # activate dark mode on another theme
 
-invert_geom_defaults() # restore geom defaults to their original values
+lighten_geoms() # restore geom defaults to their original values
+
 }

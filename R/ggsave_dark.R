@@ -7,17 +7,20 @@
 #' @param dark Whether to save as dark (\code{TRUE}) or light \code{FALSE}.
 #' @param ... Other parameters passed to \code{\link[ggplot2]{ggsave}}
 #'
-#' @importFrom ggplot2 ggsave
+#' @importFrom ggplot2 ggsave last_plot
 #'
 #' @export
 ggsave_dark <- function(filename, plot = last_plot(), dark = FALSE, ...) {
-  if (dark) set_geom_defaults(dark = TRUE)
-  else set_geom_defaults(dark = FALSE)
+
   if (length(plot$theme) == 0) plot$theme <- theme_get()
-  save_as_is <- (theme_is_dark(plot$theme) && dark) ||
-    (!theme_is_dark(plot$theme) && !dark)
-  if (!save_as_is) {
-    plot$theme <- invert_theme_elements(plot$theme)
+
+  if (dark) {
+    darken_geoms()
+    plot$theme <- darken_theme(plot$theme)
+  } else {
+    lighten_geoms()
+    plot$theme <- lighten_theme(plot$theme)
   }
+
   ggsave(filename, plot, ...)
 }

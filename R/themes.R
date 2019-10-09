@@ -31,12 +31,12 @@
 #'   to theme_linedraw() but with light grey lines and axes, to direct more
 #'   attention towards the data.}
 #'
-#'   \item{`dark_theme_dark`}{ Dark verion of theme_dark(), the dark cousin of
+#'   \item{`dark_theme_dark`}{ Dark version of theme_dark(), the dark cousin of
 #'   theme_light(), with similar line sizes but a dark background. Useful to
 #'   make thin coloured lines pop out.}
 #'
 #'   \item{`dark_theme_minimal`}{ Dark version of theme_minimal(), a
-#'   minimalistic theme with no background annotations.}
+#'   minimalist theme with no background annotations.}
 #'
 #'   \item{`dark_theme_classic`}{ Dark version of theme_classic(), a
 #'   classic-looking theme, with x and y axis lines and no gridlines.}
@@ -230,10 +230,3 @@ dark_theme_linedraw <- function(base_size = 11,
   )
 }
 
-#' @export
-#' @param theme a ggplot theme
-#' @rdname ggdarktheme
-theme_is_dark <- function(theme) {
-  stopifnot(is.theme(theme))
-  !theme$text$colour %in% c("black", "#000000")
-}

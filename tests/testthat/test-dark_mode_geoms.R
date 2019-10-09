@@ -1,0 +1,16 @@
+library(ggplot2)
+library(ggdark)
+
+test_that("geoms are changed appropriately", {
+  geoms <- get_geoms()
+  lighten_geoms(geoms)
+  expect_true(geoms_are_ggdefault(geoms))
+  lighten_geoms(geoms)
+  expect_true(geoms_are_ggdefault(geoms))
+  darken_geoms(geoms)
+  expect_true(!geoms_are_ggdefault(geoms))
+  darken_geoms(geoms)
+  expect_true(!geoms_are_ggdefault(geoms))
+  lighten_geoms(geoms)
+  expect_true(geoms_are_ggdefault(geoms))
+})

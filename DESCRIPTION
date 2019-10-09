@@ -1,17 +1,23 @@
 Package: ggdark
 Type: Package
 Title: Dark Mode for 'ggplot2' Themes
-Version: 0.2.1.9003
-Author: Neal Grantham
-Maintainer: Neal Grantham <neal@nsgrantham.com>
-Description: Activate dark mode on your favorite 'ggplot2' theme 
-             with dark_mode() or use the dark versions of 
-             'ggplot2' themes, including dark_theme_gray(),
-             dark_theme_minimal(), and others. When a dark theme 
-             is applied, all geom color and geom fill defaults 
-             are changed to make them visible against a dark 
-             background. To restore the defaults to their original 
-             values, use invert_geom_defaults().
+Version: 0.2.1.9004
+Authors@R: c(
+  person("Neal", "Grantham",
+         role = c("aut", "cre"),
+         email = "neal@nsgrantham.com"),
+  person("Arseniy", "Khvorov",
+         role = c("aut"),
+         email = "khvorov45@gmail.com"))
+Description:
+  Activate dark mode on your favorite 'ggplot2' theme 
+  with dark_mode() or use the dark versions of 
+  'ggplot2' themes, including dark_theme_gray(),
+  dark_theme_minimal(), and others. When a dark theme 
+  is applied, all geom color and geom fill defaults 
+  are changed to make them visible against a dark 
+  background. To restore the defaults to their original 
+  values, use invert_geom_defaults().
 License: MIT + file LICENSE
 Depends: R (>= 3.1)
 Imports: ggplot2 (>= 3.0)

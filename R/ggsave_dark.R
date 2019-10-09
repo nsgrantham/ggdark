@@ -2,14 +2,15 @@
 
 #' Save a dark/light version of ggplot
 #'
-#' @param plot Plot save, defaults to last plot displayed
-#' @param dark Whether to save as dark or light
+#' @param filename File name to create on disk.
+#' @param plot Plot save, defaults to last plot displayed.
+#' @param dark Whether to save as dark (\code{TRUE}) or light \code{FALSE}.
 #' @param ... Other parameters passed to \code{\link[ggplot2]{ggsave}}
 #'
 #' @importFrom ggplot2 ggsave
 #'
 #' @export
-ggsave_dark <- function(plot = last_plot(), dark = FALSE, ...) {
+ggsave_dark <- function(filename, plot = last_plot(), dark = FALSE, ...) {
   if (dark) set_geom_defaults(dark = TRUE)
   else set_geom_defaults(dark = FALSE)
   if (length(plot$theme) == 0) plot$theme <- theme_get()
@@ -18,5 +19,5 @@ ggsave_dark <- function(plot = last_plot(), dark = FALSE, ...) {
   if (!save_as_is) {
     plot$theme <- invert_theme_elements(plot$theme)
   }
-  ggsave(plot, ...)
+  ggsave(filename, plot, ...)
 }

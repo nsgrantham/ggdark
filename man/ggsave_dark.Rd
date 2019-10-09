@@ -4,12 +4,14 @@
 \alias{ggsave_dark}
 \title{Save a dark/light version of ggplot}
 \usage{
-ggsave_dark(plot = last_plot(), dark = FALSE, ...)
+ggsave_dark(filename, plot = last_plot(), dark = FALSE, ...)
 }
 \arguments{
-\item{plot}{Plot save, defaults to last plot displayed}
+\item{filename}{File name to create on disk.}
 
-\item{dark}{Whether to save as dark or light}
+\item{plot}{Plot save, defaults to last plot displayed.}
+
+\item{dark}{Whether to save as dark (\code{TRUE}) or light \code{FALSE}.}
 
 \item{...}{Other parameters passed to \code{\link[ggplot2]{ggsave}}}
 }

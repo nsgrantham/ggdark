@@ -9,9 +9,9 @@ ggsave_dark(filename, plot = last_plot(), dark = FALSE, ...)
 \arguments{
 \item{filename}{File name to create on disk.}
 
-\item{plot}{Plot save, defaults to last plot displayed.}
+\item{plot}{Plot to save, defaults to last plot displayed.}
 
-\item{dark}{Whether to save as dark (\code{TRUE}) or light \code{FALSE}.}
+\item{dark}{Whether to save as dark (\code{TRUE}) or light (\code{FALSE}).}
 
 \item{...}{Other parameters passed to \code{\link[ggplot2]{ggsave}}}
 }

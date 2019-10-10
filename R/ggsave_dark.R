@@ -3,8 +3,8 @@
 #' Save a dark/light version of ggplot
 #'
 #' @param filename File name to create on disk.
-#' @param plot Plot save, defaults to last plot displayed.
-#' @param dark Whether to save as dark (\code{TRUE}) or light \code{FALSE}.
+#' @param plot Plot to save, defaults to last plot displayed.
+#' @param dark Whether to save as dark (\code{TRUE}) or light (\code{FALSE}).
 #' @param ... Other parameters passed to \code{\link[ggplot2]{ggsave}}
 #'
 #' @importFrom ggplot2 ggsave last_plot

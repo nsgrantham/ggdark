@@ -1,7 +1,7 @@
 Package: ggdark
 Type: Package
 Title: Dark Mode for 'ggplot2' Themes
-Version: 0.2.1.9004
+Version: 0.2.1.9005
 Authors@R: c(
   person("Neal", "Grantham",
          role = c("aut", "cre"),

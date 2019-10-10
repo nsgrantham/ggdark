@@ -14,6 +14,9 @@ ggsave_dark <- function(filename, plot = last_plot(), dark = FALSE, ...) {
 
   if (length(plot$theme) == 0) plot$theme <- theme_get()
 
+  cur_geoms_dark <- geoms_are_dark()
+  on.exit(if (cur_geoms_dark) darken_geoms() else lighten_geoms())
+
   if (dark) {
     darken_geoms()
     plot$theme <- darken_theme(plot$theme)

@@ -83,20 +83,20 @@ invert_geom_defaults <- function(geoms = get_geoms(), verbose = FALSE) {
 
 #' @rdname dark_mode_geoms
 #' @export
-geoms_are_ggdefault <- function(geoms = get_geoms()) {
-  geoms[["GeomPoint"]]$default_aes$colour %in% c("black", "#000000")
+geoms_are_dark <- function(geoms = get_geoms()) {
+  !geoms[["GeomPoint"]]$default_aes$colour %in% c("black", "#000000")
 }
 
 #' @rdname dark_mode_geoms
 #' @export
 darken_geoms <- function(geoms = get_geoms(), verbose = FALSE) {
-  if (geoms_are_ggdefault(geoms)) invert_geom_defaults(geoms, verbose)
+  if (!geoms_are_dark(geoms)) invert_geom_defaults(geoms, verbose)
   invisible(geoms)
 }
 
 #' @rdname dark_mode_geoms
 #' @export
 lighten_geoms <- function(geoms = get_geoms(), verbose = FALSE) {
-  if (!geoms_are_ggdefault(geoms)) invert_geom_defaults(geoms, verbose)
+  if (geoms_are_dark(geoms)) invert_geom_defaults(geoms, verbose)
   invisible(geoms)
 }

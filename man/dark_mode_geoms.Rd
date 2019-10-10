@@ -4,7 +4,7 @@
 \alias{dark_mode_geoms}
 \alias{get_geoms}
 \alias{invert_geom_defaults}
-\alias{geoms_are_ggdefault}
+\alias{geoms_are_dark}
 \alias{darken_geoms}
 \alias{lighten_geoms}
 \title{Manipulate geoms for dark mode}
@@ -13,7 +13,7 @@ get_geoms()
 
 invert_geom_defaults(geoms = get_geoms(), verbose = FALSE)
 
-geoms_are_ggdefault(geoms = get_geoms())
+geoms_are_dark(geoms = get_geoms())
 
 darken_geoms(geoms = get_geoms(), verbose = FALSE)
 
